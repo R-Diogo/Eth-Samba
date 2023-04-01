@@ -1,31 +1,25 @@
-let texto = document.querySelector("#insert_n")
-let guess = document.querySelector("#guess")
+var n;
 
-
-guess.onclick=game()
-
-texto.addEventListener("keypress", function(event) {
-    if (event.key==="Enter"){
-        game()
-    }
+document.getElementById("myButton").addEventListener("click",function(){
+    n= document.getElementById("n_value").value;
+    game(n,ans);
 })
 
-function game(){
-
 let ans = Math.floor(Math.random() * 100) + 1;
-let n;
 let i = 0, score = 10;
-n = parseInt(prompt());
-console.log("vlw dano")
-if (n !== ans) {
+
+function game(n,ans){
+let score=10;
+console.log(ans)
+console.log(n)
+if (n != ans) {
   if (n > ans) {
     console.log("DOWN");
   }
   else {
     console.log("UP");
   }
-  n = parseInt(prompt());
-  i++;
+  i++
 }
 else {
 	
