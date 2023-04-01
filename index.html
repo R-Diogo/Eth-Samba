@@ -9,6 +9,123 @@
     <title>Document</title>
 </head>
 <body>
+
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+    type="application/javascript"></script>
+    <script >
+        async function connect(){
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+            await provider.send("eth_requestAccounts", []);
+
+            const abi=[
+	{
+		"inputs": [],
+		"name": "award",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "points",
+				"type": "uint256"
+			}
+		],
+		"name": "pay",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "addressToPoints",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "alreadyPlayed",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "seeBlockElapsedTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "seeLeaderboard",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+    const contractaddress="0xF0797C150A96d2E6b97Aa0aEA937ab56a3Bb6C5f"
+
+
+    const gameContract = new ethers.Contract(contractaddress, abi, provider);
+
+    const signer = provider.getSigner()
+    const res = await gameContract.connect(signer).pay(10);
+
+        }
+    </script>
+
+
+
+
+
+
     <div class="base" id="pao">
         <h1>
       		Try to Guess my Number :D
@@ -19,6 +136,7 @@
         <h3>
             <input type="text" id="n_value"></br>
             <button id="myButton">Take a Guess!</button>
+            <button id="myConnect" onclick="connect();">Connect with MetamMesk</button>
         </h3>
         <div class="interr">
             <img src="int.png" alt="Question Mark" width="200" height="200">
