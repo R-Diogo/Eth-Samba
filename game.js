@@ -5,24 +5,31 @@ document.getElementById("myButton").addEventListener("click",function(){
     game(n,ans);
 })
 
+document.getElementById("n_value").addEventListener("keypress",function(event){
+    if(event.key===("Enter")){
+        n= document.getElementById("n_value").value;
+        game(n,ans);
+    }
+})
+
 let ans = Math.floor(Math.random() * 100) + 1;
 let i = 0, score = 10;
 
+
 function game(n,ans){
-let score=10;
-console.log(ans)
-console.log(n)
-if (n != ans) {
-  if (n > ans) {
-    console.log("DOWN");
-  }
-  else {
-    console.log("UP");
-  }
-  i++
-}
-else {
-	
-console.log(`Congrats, you guessed the number\nYour score was ${(score - i / 2).toFixed(1)}\n`);
-}
-}
+    console.log(ans)
+    console.log(n)
+    var output = document.getElementById("output");
+    if (n != ans) {
+      if (n > ans) {
+        output.textContent = "DOWN";
+      }
+      else {
+        output.textContent = "UP";
+      }
+      i++;
+    }
+    else {
+    output.textContent = (`Congrats, you guessed the number! Your score was ${(score - i/2).toFixed(1)}\n`);
+    }
+    }
