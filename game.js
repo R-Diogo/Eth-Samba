@@ -1,9 +1,8 @@
-
 let texto = document.querySelector("#insert_n")
-let botao = document.querySelector("#botao")
+let guess = document.querySelector("#guess")
 
 
-botao.onclick=game()
+guess.onclick=game()
 
 texto.addEventListener("keypress", function(event) {
     if (event.key==="Enter"){
@@ -11,17 +10,12 @@ texto.addEventListener("keypress", function(event) {
     }
 })
 
-
+function game(){
 
 let ans = Math.floor(Math.random() * 100) + 1;
 let n;
 let i = 0, score = 10;
 n = parseInt(prompt());
-
-
-
-function game(){
-
 console.log("vlw dano")
 if (n !== ans) {
   if (n > ans) {
