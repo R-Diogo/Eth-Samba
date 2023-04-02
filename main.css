@@ -10,7 +10,7 @@ body{
 
 .base {
     background-color: rgba(46,49,57,1);
-    height: 60vh;
+    height: 85vh;
     width: 25vw;
 }
 
@@ -45,3 +45,9 @@ h3{
     display: block;
     margin: 0 auto;
   }
+h4 {
+    color: rgba(255,255,255,1);
+	text-align: center;
+	position: relative;
+	top: 400px;
+}

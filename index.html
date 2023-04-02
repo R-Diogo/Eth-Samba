@@ -6,12 +6,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <script src="./game.js" defer></script>
-    <title>Document</title>
+    <title>Guess my Number</title>
 </head>
-<body>
-
+<body>  
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
-    type="application/javascript"></script>
+    type="application/javascript" defer></script>
+    <script >
+        async function connect(){
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+            await provider.send("eth_requestAccounts", []);
+
+            const abi=[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "addressToPoints",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "award",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "points",
+				"type": "uint256"
+			}
+		],
+		"name": "pay",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "seeBlockElapsedTime",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "seeLeaderboard",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+    const contractaddress="0x4f13DAE399C8e5CAcC5E99399b09529Ae6638297"
+    const gameContract = new ethers.Contract(contractaddress, abi, provider);
+    const signer = provider.getSigner()
+    const res = await gameContract.connect(signer).pay(10);
+}
+
+async function seeLeaderboard() {
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        await provider.send("eth_requestAccounts", []);
+
+        const abi=[
+{
+    "inputs": [],
+    "name": "award",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+},
+{
+    "inputs": [
+        {
+            "internalType": "uint256",
+            "name": "points",
+            "type": "uint256"
+        }
+    ],
+    "name": "pay",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+},
+{
+    "inputs": [
+        {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+        }
+    ],
+    "name": "addressToPoints",
+    "outputs": [
+        {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+        }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+},
+{
+    "inputs": [
+        {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+        }
+    ],
+    "name": "alreadyPlayed",
+    "outputs": [
+        {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+        }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+},
+{
+    "inputs": [],
+    "name": "seeBlockElapsedTime",
+    "outputs": [
+        {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+        }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+},
+{
+    "inputs": [
+        {
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+        }
+    ],
+    "name": "seeLeaderboard",
+    "outputs": [
+        {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+        }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+}
+]
+const contractaddress="0xF0797C150A96d2E6b97Aa0aEA937ab56a3Bb6C5f"
+const gamePodium = new ethers.Contract(contractaddress, abi, provider);
+const pod1 = await gamePodium.seeLeaderboard(9);
+const pod2 = await gamePodium.seeLeaderboard(8);
+const pod3 = await gamePodium.seeLeaderboard(7);
+document.getElementById("Podium1").innerHTML = JSON.stringify(pod1);
+document.getElementById("Podium2").innerHTML = JSON.stringify(pod2);
+document.getElementById("Podium3").innerHTML = JSON.stringify(pod3);
+}
+    </script>
+
     <div class="base" id="pao">
         <h1>
       		Try to Guess my Number :D
@@ -22,8 +215,14 @@
         <h3>
             <input type="text" id="n_value"></br>
             <button id="myButton">Take a Guess!</button></br>
-            <button id="myConnect" style="display:none" onclick="connect();">Connect with MetamMesk</button>
+            <button id="myConnect" style="display:none" onclick="connect();">Connect with MetaMask</button>
         </h3>
+        <h4>
+        	<button id="leaderboard" onclick="seeLeaderboard();">See Leaderboard</button></br>
+        	<div id="Podium1"></div>
+            <div id="Podium2"></div>
+            <div id="Podium3"></div>
+         </h4>
         <div class="interr">
             <img src="int.png" alt="Question Mark" width="200" height="200">
         </div>
