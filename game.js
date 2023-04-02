@@ -137,6 +137,7 @@ async function connect(){
 const contractaddress="0xF0797C150A96d2E6b97Aa0aEA937ab56a3Bb6C5f"
 const gameContract = new ethers.Contract(contractaddress, abi, provider);
 const signer = provider.getSigner()
-const res = await gameContract.connect(signer).pay(10);
+const res = await gameContract.connect(signer).pay(score);
+
 }
 
